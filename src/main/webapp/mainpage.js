@@ -43,3 +43,19 @@ function deleteServerData(url, success){
         url: url
     }).done(success);
 }
+
+function callGetMessage(result){
+	var template1 = _.template($('#template1').html());
+
+	var html = template1({
+		"attribute":JSON.stringify(result)
+	});
+
+	$("#resultgetMessage").append(html);
+}
+
+$(function(){
+	$("#getMessage").click(function(){
+		putTextServerData("ws/connexion/getmessage/1/1/1/1",callGetMessage);
+	});
+});
