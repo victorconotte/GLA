@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import DAO.Flight;
+import DAO.FlightDao;
 
 public class Services {
 
@@ -25,7 +26,7 @@ public class Services {
 	public Flight getFlight(@PathParam(value = "flight_id") String flight_id) throws Exception {
 		Flight result = null;
 
-		result = flightDao.searchFlight(flight_id);
+		result = FlightDao.searchFlight(flight_id);
 
 		return result;
 
@@ -42,7 +43,7 @@ public class Services {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Flight> getFlightsByAirport(@PathParam(value = "airport") String airport) {
 		try {
-			return flightDao.consultElement("location", airport);
+			return FlightDao.consultElement("location", airport);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,7 +61,7 @@ public class Services {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Flight> getFlightsByDate(@PathParam(value = "date") String date) {
 		try {
-			return flightDao.consultElement("departureDate", date);
+			return FlightDao.consultElement("departureDate", date);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,11 +85,11 @@ public class Services {
 			@PathParam(value = "location") String location) throws Exception {
 		List<Flight> results = null;
 
-		results = flightDao.consultElement(date, location);
+		results = FlightDao.consultElement(date, location);
 		if (results.isEmpty()) {
-			results = flightDao.searchFlightDeparDate(date);
+			results = FlightDao.searchFlightDeparDate(date);
 			if (results.isEmpty()) {
-				results = flightDao.searchFlightLocation(location);
+				results = FlightDao.searchFlightLocation(location);
 			}
 		}
 		return results;
@@ -108,7 +109,7 @@ public class Services {
 	public List<Flight> getFlightPassenger(@PathParam(value = "passenger_username") String passenger_username)
 			throws Exception {
 		List<Flight> result = null;
-		result = flightDao.searchFlightPassenger(passenger_username);
+		result = FlightDao.searchFlightPassenger(passenger_username);
 		return result;
 
 	}
@@ -125,7 +126,7 @@ public class Services {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Flight> getFlightPilot(@PathParam(value = "pilot_username") String pilot_username) throws Exception {
 		List<Flight> result = null;
-		result = flightDao.searchFlightPliot(pilot_username);
+		result = FlightDao.searchFlightPliot(pilot_username);
 		return result;
 
 	}
