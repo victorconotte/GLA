@@ -8,7 +8,7 @@ import Mock.FlightDaoImpl;
 import Mock.PassengerDaoImpl;
 import Mock.PilotDaoImpl;
 import Mock.ReservationDaoImpl;
-import jwt.JwtToken;
+import jwtToken.JwtToken;
 
 /**
  * 
