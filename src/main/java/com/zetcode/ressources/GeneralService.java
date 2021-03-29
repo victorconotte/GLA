@@ -1,4 +1,4 @@
-package webservices;
+package com.zetcode.ressources;
 
 import javax.inject.Singleton;
 
@@ -8,7 +8,6 @@ import Mock.FlightDaoImpl;
 import Mock.PassengerDaoImpl;
 import Mock.PilotDaoImpl;
 import Mock.ReservationDaoImpl;
-import jwtToken.JwtToken;
 
 /**
  * 

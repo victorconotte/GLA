@@ -1,4 +1,4 @@
-package jwtToken;
+package com.zetcode.ressources;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;

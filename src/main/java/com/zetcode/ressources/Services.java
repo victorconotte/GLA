@@ -1,4 +1,4 @@
-package webservices;
+package com.zetcode.ressources;
 
 import java.util.LinkedList;
 import java.util.List;
