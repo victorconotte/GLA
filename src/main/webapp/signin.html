@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<div id="login-box">
+      		<div class="left-box">
+       			<h1> Sign Up</h1>
+          			<form id="form">
+          				<input type="text" name="userName" id="userName" placeholder="Username" required="required" />
+            			<input type="email" name="email" id="email" placeholder="E-mail" required="required"/>
+            			<input type="date" name="birthDate" placeHolder="Date of birth"required/>
+            			<input type="password" name="passWord" id="passWord" placeholder="Password"required="required"/>
+            			<input type="password" name ="passWord"id="repassWord" placeholder="Retype password"required="required"/>
+          			</form>
+          <input type="submit" id="submit" value="Submit"/>
+      <script>
+        $(document).ready(function () {
+            function ConvertFormToJSON(form){
+            var array = jQuery(form).serializeArray();
+            console.log(array);
+    	    var json = {};
+            var n = array.length;
+            console.log("taille :"+n);
+    	    jQuery.each(array, function() {
+                json[this.name] = this.value;
+            });
+        return json;
+        }
+        $('#submit').click(function () {
+                var json = ConvertFormToJSON($('#form'));
+                var dataj = JSON.stringify(json);
+                var password=$('#passWord').val();
+                var repassword=$('#repassWord').val();
+                console.log(password);
+                console.log(repassword);
+                if(password!=repassword){
+                	alert("please check your password again, they don't match!");	
+                }else{
+                	 $.ajax({
+                         url: 'http://localhost:8080/ws/service/createAccount',
+                         method: 'POST',
+                         data: dataj,
+                         contentType: "application/json; charset=utf-8",
+                         success: function () {
+                             alert('Saved successfully!');
+                             location.href='login.html';
+                         },
+                         error: function (error) {
+                           alert("username is already used !");
+                           location.reload();
+                         }
+                     })  
+                }    
+             })
+        });  
+    </script>
+        <style>
+#login-box
+{
+    position: absolute;
+    margin: 15% 30%;
+    height: 400px;
+    width: 600px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.left-box
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 300px;
+    height: 600px;    
+}
+
+h1
+{
+    margin: 0 0 20px 0;
+    font-weight: 300;
+    font-size: 28px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="email"]
+{
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 4px;
+    width: 220px;
+    height: 32px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #aaa;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    transition: 0.2s ease;
+}
+		</style>
+	</body> 
+</html>
