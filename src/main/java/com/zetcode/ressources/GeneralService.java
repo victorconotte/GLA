@@ -24,7 +24,5 @@ public abstract class GeneralService {
 	protected AirportDaoImpl airportDao = new AirportDaoImpl();
 	protected FlightDaoImpl flightDao = new FlightDaoImpl();
 	protected ReservationDaoImpl reservationDao = new ReservationDaoImpl();
-	// Token
-	protected JwtToken jwtModule = new JwtToken();
 
 }

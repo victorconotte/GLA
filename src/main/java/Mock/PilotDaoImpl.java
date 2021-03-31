@@ -7,41 +7,49 @@ import DAO.PilotDao;
 
 public class PilotDaoImpl implements PilotDao {
 
-	public String addElement(Pilot e) throws Exception {
+	@Override
+	public boolean addElement(Pilot e) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
+	@Override
 	public Pilot modifyElement(String id, Pilot element) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public boolean deleteElement(Pilot e) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Override
 	public boolean deleteElement(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Override
 	public List<Pilot> consultElement() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public Pilot searchPilot(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public Pilot searchPilot(String username, String password) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public Pilot searchPilotByUsername(String username) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
