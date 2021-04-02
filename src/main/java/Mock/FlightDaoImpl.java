@@ -2,18 +2,42 @@ package Mock;
 
 import java.util.List;
 
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+
 import DAO.Airplane;
 import DAO.Airport;
 import DAO.Flight;
 import DAO.FlightDao;
 import DAO.Passenger;
+import DAO.User;
 
 public class FlightDaoImpl implements FlightDao {
 
+	private PersistenceManagerFactory pmf;
+
+	public FlightDaoImpl(PersistenceManagerFactory pmf) {
+		this.pmf = pmf;
+	}
+
 	@Override
 	public boolean addElement(Flight e) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean b = true;
+		try {
+			tx.begin();
+			pm.makePersistent(e);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return b;
 	}
 
 	@Override
@@ -24,13 +48,33 @@ public class FlightDaoImpl implements FlightDao {
 
 	@Override
 	public boolean deleteElement(Flight e) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean b = true;
+		if (e == null) {
+			return false;
+		}
+		try {
+			tx.begin();
+			String flightId = e.getId();
+			if (e != null) {
+				Query q = pm.newQuery(User.class);
+				q.declareParameters("String flightId");
+				q.setFilter("id == flightId");
+				q.deletePersistentAll(flightId);
+				tx.commit();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return b;
 	}
 
 	@Override
 	public boolean deleteElement(String id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
