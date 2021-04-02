@@ -43,7 +43,7 @@ public class User {
 		return userName;
 	}
 
-	public String getPassWord() {
+	public String getPassword() {
 		return passWord;
 	}
 

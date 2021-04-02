@@ -54,7 +54,7 @@ public class UserDaoImpl implements UserDao {
 		}
 		User newUser = new User((Integer) null, name, password, null, null, null);
 		u.add(newUser);
-		return "viewmap/viewmap.html?uid=" + newUser.getId();
+		return "flightshare/flightshare.html?uid=" + newUser.getId();
 	}
 
 	@Override
