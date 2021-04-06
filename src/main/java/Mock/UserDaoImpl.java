@@ -3,12 +3,19 @@ package Mock;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.PersistenceManagerFactory;
+
 import DAO.User;
 import DAO.UserDao;
 
 public class UserDaoImpl implements UserDao {
 
 	static List<User> u = new ArrayList<>();
+	private PersistenceManagerFactory pmf;
+
+	public UserDaoImpl(PersistenceManagerFactory pmf) {
+		this.pmf = pmf;
+	}
 
 	@Override
 	public boolean addElement(User e) throws Exception {

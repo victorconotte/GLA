@@ -3,15 +3,39 @@ package Mock;
 import java.io.IOException;
 import java.util.List;
 
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+
 import DAO.Reservation;
 import DAO.ReservationDao;
+import DAO.User;
 
 public class ReservationDaoImpl implements ReservationDao {
 
+	private PersistenceManagerFactory pmf;
+
+	public ReservationDaoImpl(PersistenceManagerFactory pmf) {
+		this.pmf = pmf;
+	}
+
 	@Override
 	public boolean addElement(Reservation e) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean b = true;
+		try {
+			tx.begin();
+			pm.makePersistent(e);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return b;
 	}
 
 	@Override
@@ -22,8 +46,29 @@ public class ReservationDaoImpl implements ReservationDao {
 
 	@Override
 	public boolean deleteElement(Reservation e) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean b = true;
+		if (e == null) {
+			return false;
+		}
+		try {
+			tx.begin();
+			String reservationId = e.getId();
+			if (e != null) {
+				Query q = pm.newQuery(User.class);
+				q.declareParameters("String reservationId");
+				q.setFilter("id == reservationId");
+				q.deletePersistentAll(reservationId);
+				tx.commit();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return b;
 	}
 
 	@Override

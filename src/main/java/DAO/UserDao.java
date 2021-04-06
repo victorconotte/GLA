@@ -3,6 +3,7 @@ package DAO;
 import java.util.List;
 
 public interface UserDao extends GenericDao<User> {
+
 	/**
 	 * Returns the list of all registered users. If there is not users, it will
 	 * return a null object.
