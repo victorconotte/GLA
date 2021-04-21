@@ -20,11 +20,11 @@ import Mock.UserDaoImpl;
 public abstract class GeneralService {
 	private PersistenceManagerFactory pmf;
 	// DAO
-	protected PilotDaoImpl pilotDao = new PilotDaoImpl();
-	protected PassengerDaoImpl passangerDao = new PassengerDaoImpl();
+	protected PilotDaoImpl pilotDao = new PilotDaoImpl(pmf);
+	protected PassengerDaoImpl passangerDao = new PassengerDaoImpl(pmf);
 	protected AirplaneDaoImpl airplaneDao = new AirplaneDaoImpl(pmf);
 	protected AirportDaoImpl airportDao = new AirportDaoImpl(pmf);
 	protected FlightDaoImpl flightDao = new FlightDaoImpl(pmf);
-	protected ReservationDaoImpl reservationDao = new ReservationDaoImpl();
+	protected ReservationDaoImpl reservationDao = new ReservationDaoImpl(pmf);
 	protected UserDaoImpl userDao = new UserDaoImpl(pmf);
 }

@@ -1,5 +1,6 @@
 package Mock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -12,6 +13,7 @@ import DAO.PilotDao;
 import DAO.User;
 
 public class PilotDaoImpl implements PilotDao {
+	static List<Pilot> p = new ArrayList<>();
 	private PersistenceManagerFactory pmf;
 
 	public PilotDaoImpl(PersistenceManagerFactory pmf) {
@@ -82,8 +84,11 @@ public class PilotDaoImpl implements PilotDao {
 	}
 
 	@Override
-	public Pilot searchPilot(String id) throws Exception {
-		// TODO Auto-generated method stub
+	public Pilot searchPilot(int id) throws Exception {
+		for (Pilot pp : p) {
+			if (pp.getId() == id)
+				return pp;
+		}
 		return null;
 	}
 

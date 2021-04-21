@@ -82,19 +82,19 @@ public class AirportDaoImpl implements AirportDao {
 	}
 
 	@Override
-	public List<Airport> searcheAirportByName(String name) throws Exception {
+	public List<Airport> searchAirportByName(String name) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Airport> searcheAirportByCode(String code) throws Exception {
+	public List<Airport> searchAirportByCode(String code) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Airport> searcheAirportByLocation(String location) throws Exception {
+	public List<Airport> searchAirportByLocation(String location) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
