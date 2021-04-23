@@ -38,6 +38,104 @@
 		</div>
 
 </body>
+<script>
+$(document).ready(function () {
+		var username=sessionStorage.getItem('username');
+    $('.add').click(function () {
+    	  var plane = $('#plane').val();
+    	  var pilot = username;
+            var departure_airport = $('#departure_airport').val();
+            var departure_location = $('#departure_location').val();
+            var departure_code = $('#departure_code').val();
+            var departure_date = $('#departure_date').val();
+            var departure_time = $('#departure_time').val();
+            var duree = $('#duree').val();
+            var arrival_airport = $('#arrival_airport').val();
+            var arrival_location = $('#arrival_location').val();
+            var arrival_code = $('#arrival_code').val();
+            var price = $('#price').val();
+            var available_seats = $('#available_seats').val();
+            var randomID=Math.floor(((Math.random() * 10000)/3 + 12)*2.31);
+            console.log(plane);
+            console.log(pilot);
+            console.log(departure_airport);
+            console.log(departure_date);
+            console.log(departure_time);
+            console.log(duree);
+            console.log(arrival_airport);
+            console.log(price);
+            console.log(available_seats);
+            
+            $.ajax({
+  			  type: "get",
+  			  pilotdata:{
+  	         	 'pilot_username': username.trim(),
+  	          },
+  	          dataType: "json",
+  	          url: 'http://localhost:8080/ws/service/getPilot/'+username.trim(),
+  	          success: function (pilotdata) {
+  	        	 pilot=pilotdata;
+  	        	 console.log(pilot);
+  	        	 var flight={
+  	        			 'id':randomID,
+  	                 'plane': plane,
+  	                 'pilot': pilot,
+  	              	 'departureAirport': {
+  	              		'name': departure_airport,
+  	              		'icaoCode': departure_code,
+  	              		'location':	departure_location
+  	              },
+  	              	 'departureDate': departure_date,
+  	              	 'departureTime': departure_time,
+  	              	 'duree': duree,
+  	              	 'arrivalAirport': {
+  	              		'name': arrival_airport,
+  	              		'icaoCode': arrival_code,
+  	              		'location':	arrival_location
+  	              },
+  	              	 'price': price,
+  	              	 'availableSeat': available_seats,	
+  	              	 
+  	               }
+  	              console.log(JSON.stringify(flight));
+  	              
+  	               $.ajax({
+  	                   url: 'http://localhost:8080/ws/service/addFlight',
+  	                   method: 'PUT',
+  	                   dataType:'json',
+  	                   contentType:'application/json',
+  	                   data:JSON.stringify(flight),
+  	                   success: function (data) {
+  	                	  console.log(data);
+  	                	 alert("Your new flight has been published successfully.");
+  	                	 location.href='my_compte.html';
+  	                	 
+  	                },
+  	                   error: function (error) {
+  	                       alert("Opps, no valide information, please try again.");
+  	                   }
+  	               });
+  	          },
+  	         error:function(error){
+  	          } 	         
+			})
+            
+            
+            
+           
+    });  
+})
+
+function detail(id){
+	sessionStorage.setItem('flight_id',id);
+	window.open('flight_info.html');
+  
+}
+function backcompte(){
+	location.replace("my_compte.html");
+}
+</script>
+
 <style>
 	.navbar {
     transition: all 0.4s;
