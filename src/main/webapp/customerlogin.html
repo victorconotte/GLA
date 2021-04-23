@@ -47,6 +47,58 @@ color:white; width: 266px; height:266px;x;  border-radius:100px">
 	        }
 	    });
 	});
+	
+	
+	 $(document).ready(function () {
+    	 
+	      $('.btn').click(function () {
+	    	  	
+	              var username = $('#username').val();
+	              var password = $('#password').val();
+	               $.ajax({
+	                   url: 'http://localhost:8080/ws/service/login',
+	                   method: 'POST',
+	                   data :{
+				                'usr' : username,
+				                'pwd' : password
+			                },
+	                    dataType : "json",
+	                    success: function () {
+	                      alert("login successfull!");
+	                      sessionStorage.setItem('username',username);
+	                      $.ajax({
+	                		  type: "get",
+	                	       url: 'http://localhost:8080/ws/service/usertype',
+	                          dataType: "json",
+	                        success: function (data) {
+	                        	var role=data.role;
+	                      	  	console.log(role.trim()=="pilot");
+	                	      	if(role.trim()=='passenger'){
+	                	      		 sessionStorage.setItem('status_login','passenger');
+	                	      	}else if (role.trim()=="pilot"){
+	                	      		 sessionStorage.setItem('status_login','pilot');
+	                	      		 console.log("change status");
+	                	     	}
+	                	      	 var lastpage=document.referrer;
+	                    		  console.log(lastpage);
+		       	       			  if(lastpage!='http://localhost:8080/flight_info.html'){
+		       	       				  location.href='home.html';
+		       	       			  }else{
+		       	       				location.href='flight_info.html';
+		       	       			  }
+	                        },
+	                        error:function(error){
+	                        	 alert("error");
+	                        }
+	                      }) 
+	                        
+							},
+	                   error: function (error) {
+	                       alert("login failed");
+	                   }
+	               })  
+	           })
+	      });  
 	</script>
 	<style>
 	.navbar {

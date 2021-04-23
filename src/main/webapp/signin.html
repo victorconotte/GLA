@@ -51,13 +51,13 @@
                 	alert("please check your password again, they don't match!");	
                 }else{
                 	 $.ajax({
-                         url: 'http://localhost:8080/ws/service/createAccount',
+                         url: 'http://localhost:8080/com/zetcode/ressources/Services/createUser',
                          method: 'POST',
                          data: dataj,
                          contentType: "application/json; charset=utf-8",
                          success: function () {
                              alert('Saved successfully!');
-                             location.href='login.html';
+                             location.href='flightsearch.html';
                          },
                          error: function (error) {
                            alert("username is already used !");
