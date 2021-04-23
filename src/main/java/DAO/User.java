@@ -1,12 +1,12 @@
 package DAO;
 
 public class User {
-	
-	//=================================attributes==============================
+
+	// =================================attributes==============================
 	/**
-	 * the id 
+	 * the id
 	 */
-	private String id;
+	private int id;
 	/**
 	 * the userName of the user account
 	 */
@@ -23,74 +23,74 @@ public class User {
 	 * the birth date of the passenger
 	 */
 	private String birthDate;
-	
+
 	private String email;
 	// =============================== the methods ================================
-	
-	public User(String id,String userName, String passWord, String name, String birthDate,String mail) {
+
+	public User(int id, String userName, String passWord, String name, String birthDate, String mail) {
 		this.setId(id);
 		this.userName = userName;
 		this.passWord = passWord;
 		this.name = name;
 		this.birthDate = birthDate;
-		this.email=mail;
+		this.email = mail;
 	}
-	
-	
-	//-------------------------------getters and setters---------------------------- 
 
+	// -------------------------------getters and
+	// setters----------------------------
 
 	public String getUserName() {
 		return userName;
 	}
-	
-	public String getPassWord() {
+
+	public String getPassword() {
 		return passWord;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public String getBirthDate() {
 		return birthDate;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public void setPassWord(String passWord) {
+
+	public void setPassword(String passWord) {
 		this.passWord = passWord;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 
-
 	@Override
 	public String toString() {
-		return "User [userName=" + userName + ", passWord=" + passWord + ", name=" + name
-				+ ", birthDate=" + birthDate + "]";
+		return "User [userName=" + userName + ", passWord=" + passWord + ", name=" + name + ", birthDate=" + birthDate
+				+ "]";
 	}
-	//--------------------------------------------------------------------
-
+	// --------------------------------------------------------------------
 
 	public String getEmail() {
 		return email;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
