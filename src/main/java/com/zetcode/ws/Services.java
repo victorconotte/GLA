@@ -1,5 +1,6 @@
-package com.zetcode.ressources;
+package com.zetcode.ws;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,6 +17,7 @@ import DAO.Airport;
 import DAO.Flight;
 import DAO.Pilot;
 import DAO.User;
+import DAO.Passenger;
 
 public class Services extends GeneralService {
 
@@ -72,8 +74,13 @@ public class Services extends GeneralService {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public boolean addFlight(Flight f) throws Exception {
-		return flightDao.addElement(f);
+	@Path("/addFlight")
+	public String addFlight(Flight f) throws Exception {
+		System.out.println(f);
+		List<Passenger> pas=new LinkedList<Passenger>();
+		f.setPassengers(pas);
+		flightDao.addElement(f);
+		return "{\"result\" :\" ok\"}";
 	}
 
 }

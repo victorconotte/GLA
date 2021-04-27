@@ -1,4 +1,4 @@
-package com.zetcode.ressources;
+package com.zetcode.ws;
 
 import javax.inject.Singleton;
 import javax.jdo.PersistenceManagerFactory;
