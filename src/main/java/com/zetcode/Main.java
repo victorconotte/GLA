@@ -53,11 +53,12 @@ public class Main {
     			server.setHandler(contexts);
 
     			// Start server
-    			try {
-					server.start();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					try {
+						server.start();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
     }
 }

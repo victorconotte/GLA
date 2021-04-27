@@ -19,9 +19,10 @@ import DAO.Pilot;
 import DAO.User;
 import DAO.Passenger;
 
+@Path("/service")
 public class Services extends GeneralService {
 
-	@GET
+	/*@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{user-id}")
 	public User getUser(@PathParam("user-id") int uid) {
@@ -69,7 +70,7 @@ public class Services extends GeneralService {
 	@Path("/{user-id}")
 	public Pilot getPilot(@PathParam("pilot-id") int pid) throws Exception {
 		return pilotDao.searchPilot(pid);
-	}
+	}*/
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
