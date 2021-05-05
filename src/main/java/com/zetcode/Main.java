@@ -13,52 +13,55 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
+import DAO.DataBase;
+
 public class Main {
 
-    public static void main(String[] args) {
-    	// Initialize the server
-    			Server server = new Server();
+	public static void main(String[] args) throws Exception {
+		// Initialize the server
+		Server server = new Server();
 
-    			// Add a connector
-    			ServerConnector connector = new ServerConnector(server);
-    			connector.setHost("0.0.0.0");
-    			connector.setPort(8080);
-    			connector.setIdleTimeout(30000);
-    			server.addConnector(connector);
+		// Add a connector
+		ServerConnector connector = new ServerConnector(server);
+		connector.setHost("0.0.0.0");
+		connector.setPort(8080);
+		connector.setIdleTimeout(30000);
+		server.addConnector(connector);
 
-    			// Configure Jersey
-    			ResourceConfig rc = new ResourceConfig();
-    			rc.packages(true, "com.zetcode.ws");
-    			rc.register(JacksonFeature.class);
-    			rc.register(LoggingFilter.class);
+		// Configure Jersey
+		ResourceConfig rc = new ResourceConfig();
+		rc.packages(true, "com.zetcode.ws");
+		rc.register(JacksonFeature.class);
+		rc.register(LoggingFilter.class);
 
-    			// Add a servlet handler for web services (/ws/*)
-    			ServletHolder servletHolder = new ServletHolder(new ServletContainer(rc));
-    			ServletContextHandler handlerWebServices = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    			handlerWebServices.setContextPath("/ws");
-    			handlerWebServices.addServlet(servletHolder, "/*");
+		// Add a servlet handler for web services (/ws/*)
+		ServletHolder servletHolder = new ServletHolder(new ServletContainer(rc));
+		ServletContextHandler handlerWebServices = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		handlerWebServices.setContextPath("/ws");
+		handlerWebServices.addServlet(servletHolder, "/*");
 
-    			// Add a handler for resources (/*)
-    			ResourceHandler handlerPortal = new ResourceHandler();
-    			handlerPortal.setResourceBase("src/main/webapp");
-    			handlerPortal.setDirectoriesListed(false);
-    			handlerPortal.setWelcomeFiles(new String[] { "mainpage.html" });
-    			ContextHandler handlerPortalCtx = new ContextHandler();
-    			handlerPortalCtx.setContextPath("/");
-    			handlerPortalCtx.setHandler(handlerPortal);
+		// Add a handler for resources (/*)
+		ResourceHandler handlerPortal = new ResourceHandler();
+		handlerPortal.setResourceBase("src/main/webapp");
+		handlerPortal.setDirectoriesListed(false);
+		handlerPortal.setWelcomeFiles(new String[] { "mainpage.html" });
+		ContextHandler handlerPortalCtx = new ContextHandler();
+		handlerPortalCtx.setContextPath("/");
+		handlerPortalCtx.setHandler(handlerPortal);
 
-    			// Activate handlers
-    			ContextHandlerCollection contexts = new ContextHandlerCollection();
-    			contexts.setHandlers(new Handler[] { handlerWebServices, handlerPortalCtx });
-    			server.setHandler(contexts);
+		// Activate handlers
+		ContextHandlerCollection contexts = new ContextHandlerCollection();
+		contexts.setHandlers(new Handler[] { handlerWebServices, handlerPortalCtx });
+		server.setHandler(contexts);
+		DataBase db = new DataBase();
+		db.init();
+		// Start server
+		try {
+			server.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-    			// Start server
-					try {
-						server.start();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-    }
+	}
 }
