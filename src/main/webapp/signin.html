@@ -51,7 +51,7 @@
                 	alert("please check your password again, they don't match!");	
                 }else{
                 	 $.ajax({
-                         url: 'http://localhost:8080/com/zetcode/ressources/Services/createUser',
+                         url: 'http://localhost:8080/ws/service/createUser',
                          method: 'POST',
                          data: dataj,
                          contentType: "application/json; charset=utf-8",
