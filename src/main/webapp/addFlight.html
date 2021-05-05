@@ -55,16 +55,7 @@ $(document).ready(function () {
             var arrival_code = $('#arrival_code').val();
             var price = $('#price').val();
             var available_seats = $('#available_seats').val();
-            var randomID=Math.floor(((Math.random() * 10000)/3 + 12)*2.31);
-            console.log(plane);
-            console.log(pilot);
-            console.log(departure_airport);
-            console.log(departure_date);
-            console.log(departure_time);
-            console.log(duree);
-            console.log(arrival_airport);
-            console.log(price);
-            console.log(available_seats);
+            var randomID=Math.floor(((Math.random() * 10000)/3,12);
             
             $.ajax({
   			  type: "get",

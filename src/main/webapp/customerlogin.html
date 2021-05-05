@@ -22,12 +22,12 @@
 
 color:white; width: 266px; height:266px;x;  border-radius:100px">
 		<center><h1>Customer Login </h1>
-		Email:<input type="text" name="email">
+		Username:<input type="text" name="username">
 		</br>
 		Password<input type="text" name="pass">
 		
 		</br>
-		<button id="getMessage">Getmessage</button>
+		<button id="getMessage">Login</button>
 		<div id="resultGetMessage"></div></center>
 		<!--<input type="button" value="Submit"> </center>-->
 		</br>
@@ -54,7 +54,7 @@ color:white; width: 266px; height:266px;x;  border-radius:100px">
 	      $('.btn').click(function () {
 	    	  	
 	              var username = $('#username').val();
-	              var password = $('#password').val();
+	              var password = $('#pass').val();
 	               $.ajax({
 	                   url: 'http://localhost:8080/ws/service/login',
 	                   method: 'POST',
@@ -64,40 +64,20 @@ color:white; width: 266px; height:266px;x;  border-radius:100px">
 			                },
 	                    dataType : "json",
 	                    success: function () {
-	                      alert("login successfull!");
-	                      sessionStorage.setItem('username',username);
-	                      $.ajax({
-	                		  type: "get",
-	                	       url: 'http://localhost:8080/ws/service/usertype',
-	                          dataType: "json",
+	                    	alert("login successfull!");
+	                        sessionStorage.setItem('username',username);
 	                        success: function (data) {
-	                        	var role=data.role;
-	                      	  	console.log(role.trim()=="pilot");
-	                	      	if(role.trim()=='passenger'){
-	                	      		 sessionStorage.setItem('status_login','passenger');
-	                	      	}else if (role.trim()=="pilot"){
-	                	      		 sessionStorage.setItem('status_login','pilot');
-	                	      		 console.log("change status");
-	                	     	}
-	                	      	 var lastpage=document.referrer;
-	                    		  console.log(lastpage);
-		       	       			  if(lastpage!='http://localhost:8080/flight_info.html'){
-		       	       				  location.href='home.html';
-		       	       			  }else{
-		       	       				location.href='flight_info.html';
-		       	       			  }
+	                	    	sessionStorage.setItem('status_login','passenger');
+		       	       			location.href='flightsearch.html';
+		       	       			  
 	                        },
-	                        error:function(error){
-	                        	 alert("error");
-	                        }
 	                      }) 
 	                        
 							},
 	                   error: function (error) {
 	                       alert("login failed");
 	                   }
-	               })  
-	           })
+	             })  
 	      });  
 	</script>
 	<style>
