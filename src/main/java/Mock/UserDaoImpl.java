@@ -3,7 +3,10 @@ package Mock;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 
 import DAO.User;
 import DAO.UserDao;
@@ -19,8 +22,20 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean addElement(User e) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean b = true;
+		try {
+			tx.begin();
+			pm.makePersistent(e);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return b;
 	}
 
 	@Override
@@ -31,8 +46,29 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean deleteElement(User e) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		boolean b = true;
+		if (e == null) {
+			return false;
+		}
+		try {
+			tx.begin();
+			String uid = Integer.toString(e.getId());
+			if (e != null) {
+				Query q = pm.newQuery(User.class);
+				q.declareParameters("String uid");
+				q.setFilter("id == uid");
+				q.deletePersistentAll(uid);
+				tx.commit();
+			}
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return b;
 	}
 
 	@Override

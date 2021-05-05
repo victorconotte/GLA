@@ -1,13 +1,11 @@
 package DAO;
 
-
-
 public class Airplane {
-	//=================================attributes==============================
+
 	/**
 	 * the id of the plane
 	 */
-	private int id ;
+	private int id;
 	/**
 	 * the model of the plane
 	 */
@@ -16,19 +14,17 @@ public class Airplane {
 	 * the seat number of the plane
 	 */
 	private int nbSeat;
-	
-	//=================================Constructors==============================
+
 	public Airplane(int id, String model, int nbSeat) {
 		super();
 		this.id = id;
 		this.model = model;
 		this.nbSeat = nbSeat;
 	}
-	
-	// =============================== the methods ================================
-	
-	//-------------------------------getters and setters---------------------------- 
-	
+
+	// -------------------------------getters and
+	// setters----------------------------
+
 	public Airplane() {
 		this.id = 1;
 		this.model = "test-model";
@@ -40,22 +36,27 @@ public class Airplane {
 		this.model = model;
 		this.nbSeat = 1000;
 	}
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public String getModel() {
 		return model;
 	}
+
 	public int getNbSeat() {
 		return nbSeat;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public void setModel(String model) {
 		this.model = model;
 	}
+
 	public void setNbSeat(int nbSeat) {
 		this.nbSeat = nbSeat;
 	}
@@ -64,10 +65,7 @@ public class Airplane {
 	public String toString() {
 		return "Airplane [id=" + id + ", model=" + model + ", nbSeat=" + nbSeat + "]";
 	}
-	
-	
-	//-----------------------------------------------------------------------------------------
-	
-	
+
+	// -----------------------------------------------------------------------------------------
 
 }

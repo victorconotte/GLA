@@ -9,6 +9,7 @@ import javax.jdo.Transaction;
 
 import DAO.Airplane;
 import DAO.Airport;
+import DAO.DataBase;
 import DAO.Flight;
 import DAO.FlightDao;
 import DAO.Passenger;
@@ -77,11 +78,18 @@ public class FlightDaoImpl implements FlightDao {
 	public boolean deleteElement(String id) {
 		return false;
 	}
+	/*
+	 * @Override public List<Flight> consultElement() throws Exception {
+	 * PersistenceManager pm = pmf.getPersistenceManager(); Transaction tx =
+	 * pm.currentTransaction(); List<Flight> flights; try { tx.begin(); flights =
+	 * new ArrayList<Flight>(pm.getManagedObjects(Flight.class)); tx.commit(); }
+	 * finally { if (tx.isActive()) { tx.rollback(); } pm.close(); } return flights;
+	 * }
+	 */
 
 	@Override
 	public List<Flight> consultElement() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return DataBase.flights;
 	}
 
 	@Override
@@ -172,6 +180,12 @@ public class FlightDaoImpl implements FlightDao {
 	public String addElement(String id, Flight e) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void addFlight(Flight f) {
+		DataBase.flights.add(f);
+
 	}
 
 }

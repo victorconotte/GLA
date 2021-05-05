@@ -1,6 +1,7 @@
 package Mock;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -79,8 +80,20 @@ public class ReservationDaoImpl implements ReservationDao {
 
 	@Override
 	public List<Reservation> consultElement() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Reservation> reservations;
+		try {
+			tx.begin();
+			reservations = new ArrayList<Reservation>(pm.getManagedObjects(Reservation.class));
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return reservations;
 	}
 
 	@Override
