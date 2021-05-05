@@ -1,6 +1,9 @@
 package com.zetcode.ws;
 
+import java.util.Properties;
+
 import javax.inject.Singleton;
+import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
 import Mock.AirplaneDaoImpl;
@@ -18,7 +21,8 @@ import Mock.UserDaoImpl;
  */
 @Singleton
 public abstract class GeneralService {
-	private PersistenceManagerFactory pmf;
+	Properties properties = new Properties();
+	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("jdo.properties");
 	// DAO
 	protected PilotDaoImpl pilotDao = new PilotDaoImpl(pmf);
 	protected PassengerDaoImpl passangerDao = new PassengerDaoImpl(pmf);
