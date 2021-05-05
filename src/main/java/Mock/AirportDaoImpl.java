@@ -1,5 +1,6 @@
 package Mock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -9,6 +10,7 @@ import javax.jdo.Transaction;
 
 import DAO.Airport;
 import DAO.AirportDao;
+import DAO.Flight;
 import DAO.User;
 
 public class AirportDaoImpl implements AirportDao {
@@ -77,8 +79,20 @@ public class AirportDaoImpl implements AirportDao {
 
 	@Override
 	public List<Airport> consultElement() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Airport> airports;
+		try {
+			tx.begin();
+			airports = new ArrayList<Airport>(pm.getManagedObjects(Flight.class));
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return airports;
 	}
 
 	@Override

@@ -79,8 +79,20 @@ public class PilotDaoImpl implements PilotDao {
 
 	@Override
 	public List<Pilot> consultElement() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Pilot> pilots;
+		try {
+			tx.begin();
+			pilots = new ArrayList<Pilot>(pm.getManagedObjects(Pilot.class));
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return pilots;
 	}
 
 	@Override

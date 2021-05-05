@@ -1,5 +1,6 @@
 package Mock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -70,10 +71,23 @@ public class PassengerDaoImpl implements PassengerDao {
 		return b;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Passenger> consultElement() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Passenger> passengers;
+		try {
+			tx.begin();
+			passengers = new ArrayList<Passenger>(pm.getManagedObjects(Passenger.class));
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return passengers;
 	}
 
 	@Override

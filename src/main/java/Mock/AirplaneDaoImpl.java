@@ -1,5 +1,6 @@
 package Mock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -76,8 +77,20 @@ public class AirplaneDaoImpl implements AirplaneDao {
 
 	@Override
 	public List<Airplane> consultElement() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Airplane> planes;
+		try {
+			tx.begin();
+			planes = new ArrayList<Airplane>(pm.getManagedObjects(Airplane.class));
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return planes;
 	}
 
 	@Override
@@ -88,8 +101,27 @@ public class AirplaneDaoImpl implements AirplaneDao {
 
 	@Override
 	public List<Airplane> searchPlane(String model) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Airplane> actions = null;
+		List<Airplane> detached = new ArrayList<Airplane>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Airplane.class);
+			q.declareParameters("String mod");
+			q.setFilter("model == mod");
+
+			actions = (List<Airplane>) q.execute(model);
+			detached = (List<Airplane>) pm.detachCopyAll(actions);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
 	}
 
 }
